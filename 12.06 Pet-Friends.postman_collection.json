@@ -1,0 +1,373 @@
+{
+	"info": {
+		"_postman_id": "16fb4d5e-aed4-405a-9b58-2472036fd382",
+		"name": "12.06 Pet-Friends",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24338352",
+		"_collection_link": "https://bold-eclipse-184215.postman.co/workspace/Team-Workspace~4cdc3591-c3e3-46d3-877b-1ab2bda49dfa/collection/24338352-16fb4d5e-aed4-405a-9b58-2472036fd382?action=share&creator=24338352&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "Get API key",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Get key\", function () {",
+							"    let jsonData = JSON.parse(responseBody);",
+							"    pm.collectionVariables.set(\"auth_key\", jsonData.key)",
+							"    ",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{auth_key}}",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "auth_key",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "email",
+						"value": "ivi.informatika@gmail.com",
+						"type": "text"
+					},
+					{
+						"key": "password",
+						"value": "Tocmir55",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{Base_URl}}/api/key",
+					"host": [
+						"{{Base_URl}}"
+					],
+					"path": [
+						"api",
+						"key"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add information about new pet without photo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Get key\", function () {",
+							"    let jsonData = JSON.parse(responseBody);",
+							"    pm.collectionVariables.set(\"pet_id\", jsonData.id)",
+							"    ",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{auth_key}}",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "auth_key",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "Tyson",
+							"type": "text"
+						},
+						{
+							"key": "animal_type",
+							"value": "Dog",
+							"type": "text"
+						},
+						{
+							"key": "age",
+							"value": "11",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{Base_URl}}/api/create_pet_simple",
+					"host": [
+						"{{Base_URl}}"
+					],
+					"path": [
+						"api",
+						"create_pet_simple"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get list of my pets",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Get id 0_element\", function () {",
+							"    let jsonData = JSON.parse(responseBody);",
+							"    pm.expect(pm.collectionVariables.get(\"pet_id\")).to.eql(jsonData.pets[0].id)",
+							"    console.log(jsonData.pets[0].id)",
+							"});",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{auth_key}}",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "auth_key",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Base_URl}}/api/pets?filter=my_pets",
+					"host": [
+						"{{Base_URl}}"
+					],
+					"path": [
+						"api",
+						"pets"
+					],
+					"query": [
+						{
+							"key": "filter",
+							"value": "my_pets"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update information about pet",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{auth_key}}",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "auth_key",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "Tyson",
+							"type": "text"
+						},
+						{
+							"key": "animal_type",
+							"value": "Cat",
+							"type": "text"
+						},
+						{
+							"key": "age",
+							"value": "11",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{Base_URl}}/api/pets/{{pet_id}}",
+					"host": [
+						"{{Base_URl}}"
+					],
+					"path": [
+						"api",
+						"pets",
+						"{{pet_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete pet from database",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{auth_key}}",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "auth_key",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{Base_URl}}/api/pets/{{pet_id}}",
+					"host": [
+						"{{Base_URl}}"
+					],
+					"path": [
+						"api",
+						"pets",
+						"{{pet_id}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": [
+			{
+				"key": "value",
+				"value": "{{auth_key}}",
+				"type": "string"
+			},
+			{
+				"key": "key",
+				"value": "auth_key",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "Base_URl",
+			"value": "https://petfriends.skillfactory.ru/",
+			"type": "string"
+		},
+		{
+			"key": "auth_key",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "pet_id",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
